@@ -53,7 +53,8 @@
       "id": 7,
       "title": "magnam facilis autem",
       "body": "dolore placeat quibusdam ea quo vitae magni quis enim qui quis quo nemo aut saepe quidem repellat excepturi ut quia sunt ut sequi eos ea sed quas",
-      "status": false
+      "status": "draft",
+      "topRate": false
     },
     {
       "userId": 1,
