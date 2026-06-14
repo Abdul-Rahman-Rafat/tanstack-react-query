@@ -5,8 +5,7 @@ import { DataItem } from "../Types";
 
 const getposts = async (q: string): Promise<DataItem[]> => {
   const response = await axios.get<DataItem[]>(
-    // how to search in axios ? by q
-    `http://localhost:3000/posts?q=${q}`,
+    `http://localhost:3000/posts?body:contains=${encodeURIComponent(q)}`,
   );
   console.log(response.data);
   return response.data;
