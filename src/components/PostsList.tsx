@@ -5,6 +5,11 @@ import { DataItem, postStatusType } from "../Types";
 import useSearch from "../hooks/useSearch";
 import { useState } from "react";
 
+//prefetch
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { getposts } from "../hooks/useGetPosts";
+
 interface filterPropspostlist {
   filterstatus: postStatusType;
   searchquery: string;
@@ -18,7 +23,20 @@ export default function PostsList({
   const { data, isLoading, error } = useGetPosts(filterstatus, paginate); // descrturing
   const searchData = useSearch(searchquery); // without descrturing
 
-  console.log(data?.data);
+  //prefetch should be before isLoading to prevent this error  " Rendered more hooks than during the previous render."
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    const nextPage = paginate + 1;
+    if (nextPage > 3) return; // work until page 3 only
+    queryClient.prefetchQuery({
+      queryKey: ["posts", { filterstatus: "all", paginate: nextPage }], // bring the queryKey  from useQuery or the tanStack devtool
+      queryFn: () => getposts(filterstatus, nextPage),
+    });
+  }, [paginate, queryClient]);
+
+  // console.log("searchData", searchData.data);
+
+  console.log("f,d", filterstatus, data?.data);
 
   if (isLoading || searchData.isLoading) {
     return <div>Loading...</div>;
@@ -29,7 +47,6 @@ export default function PostsList({
   if (searchData.error) {
     return <div>Error: {searchData.error.message}</div>;
   }
-
   return (
     <>
       <Table striped bordered hover>
@@ -44,7 +61,7 @@ export default function PostsList({
         </thead>
         <tbody>
           {searchquery.length === 0 &&
-            data?.data.map((post: DataItem) => (
+            data?.data?.map((post: DataItem) => (
               <tr key={post.id}>
                 <td>{post.id}</td>
                 <td>

@@ -19,7 +19,7 @@ const useSearch = (q: string): UseQueryResult<DataItem[]> => {
   const query = useQuery({
     queryKey: ["posts", { q }],
     queryFn: () => getposts(q),
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 5,
     enabled: q.length > 0,
   });
   return query;

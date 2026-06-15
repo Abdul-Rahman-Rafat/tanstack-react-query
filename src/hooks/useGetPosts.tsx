@@ -13,7 +13,7 @@ interface PaginatedResponse {
   data: DataItem[];
 }
 
-const getposts = async (
+export const getposts = async (
   filterstatus: postStatusType,
   paginate: number,
 ): Promise<PaginatedResponse> => {
@@ -21,14 +21,22 @@ const getposts = async (
     const response = await axios.get<PaginatedResponse>(
       `http://localhost:3000/posts?_page=${paginate}&_per_page=5`,
     );
-    console.log(response.data.data);
+    // console.log("r", response.data.data);
     return response.data;
   } else {
-    const response = await axios.get<PaginatedResponse>(
+    const response = await axios.get<DataItem[]>(
       `http://localhost:3000/posts?status=${filterstatus}`,
     );
-    console.log(response.data);
-    return response.data;
+
+    return {
+      first: 1,
+      prev: null,
+      next: null,
+      last: 1,
+      pages: 1,
+      items: response.data.length,
+      data: response.data,
+    };
   }
 };
 
