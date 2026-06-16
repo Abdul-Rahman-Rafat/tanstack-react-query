@@ -65,7 +65,7 @@ export default function PostsList({
               <tr key={post.id}>
                 <td>{post.id}</td>
                 <td>
-                  <Link to="/info">{post.title}</Link>
+                  <Link to={`/info?id=${post.id}&type=paginate&key=${paginate}`}>{post.title}</Link>
                 </td>
                 <td>{post.status}</td>
                 <td style={{ textAlign: "center" }}>
@@ -86,7 +86,7 @@ export default function PostsList({
               <tr key={post.id}>
                 <td>{post.id}</td>
                 <td>
-                  <Link to="/info">{post.title}</Link>
+                  <Link to={`/info?id=${post.id}&type=search&key=${searchquery}`}>{post.title}</Link>
                 </td>
                 <td>{post.status}</td>
                 <td style={{ textAlign: "center" }}>
