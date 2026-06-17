@@ -6,7 +6,7 @@ import useSearch from "../hooks/useSearch";
 import useUpdateRate from "../hooks/useUpdateRate";
 import useRemovePost from "../hooks/useRemovePost";
 import { useState } from "react";
-
+import { useIsFetching } from "@tanstack/react-query";
 //prefetch
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
@@ -42,11 +42,15 @@ export default function PostsList({
   // console.log("searchData", searchData.data);
 
   console.log("f,d", filterstatus, data?.data);
-
-  if (isLoading || searchData.isLoading) {
+const globalLoading = useIsFetching();
+  if (globalLoading) {
     return <div>Loading...</div>;
   }
   if (error) {
+  // if (isLoading || searchData.isLoading) {
+  //   return <div>Loading...</div>;
+  // }
+  // if (error) {
     return <div>Error: {error.message}</div>;
   }
   if (searchData.error) {
