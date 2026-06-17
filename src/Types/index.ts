@@ -15,5 +15,18 @@ export interface CommentResponse{
   comment: string;
   post_id: number;
 }
-
+export interface topRatePost{
+  post_id: number;
+  rateValue: boolean;
+  pageNumber:number;
+}
+export interface PaginatedResponse {
+  first: number;
+  prev: number | null;
+  next: number | null;
+  last: number;
+  pages: number;
+  items: number;
+  data: DataItem[];
+}
 export type postStatusType = "published" | "draft" | "block" | "all";

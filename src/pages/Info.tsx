@@ -26,6 +26,7 @@ const Info = () => {
   if(isLoading) return <div>Loading...</div>
   if(error) return <div>Error Occured</div>
   if(!data) return <div>No Data Found</div>
+  
 
   function commentSubmit(e: React.FormEvent<HTMLFormElement>){
     e.preventDefault();

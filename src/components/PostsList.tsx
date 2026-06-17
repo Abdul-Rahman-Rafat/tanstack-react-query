@@ -3,6 +3,7 @@ import { Table, Form, ButtonGroup, Button } from "react-bootstrap";
 import useGetPosts from "../hooks/useGetPosts";
 import { DataItem, postStatusType } from "../Types";
 import useSearch from "../hooks/useSearch";
+import useUpdateRate from "../hooks/useUpdateRate";
 import { useState } from "react";
 
 //prefetch
@@ -23,6 +24,8 @@ export default function PostsList({
   const { data, isLoading, error } = useGetPosts(filterstatus, paginate); // descrturing
   const searchData = useSearch(searchquery); // without descrturing
 
+
+  const updateRate = useUpdateRate();
   //prefetch should be before isLoading to prevent this error  " Rendered more hooks than during the previous render."
   const queryClient = useQueryClient();
   useEffect(() => {
@@ -46,6 +49,10 @@ export default function PostsList({
   }
   if (searchData.error) {
     return <div>Error: {searchData.error.message}</div>;
+  }
+  function handleTopRateChange(id: number, topRate: boolean) {
+    console.log("id : ", id, "topRate : ", topRate);
+    updateRate.mutate({post_id: id , rateValue: topRate , pageNumber: paginate});
   }
   return (
     <>
@@ -71,6 +78,9 @@ export default function PostsList({
                 <td style={{ textAlign: "center" }}>
                   <Form.Check // prettier-ignore
                     type="switch"
+                    checked={post.topRate}
+                    onChange={() => handleTopRateChange(post.id, !post.topRate)}
+                    disabled={filterstatus !== "all" || searchquery.length > 0}
                   />
                 </td>
                 <td>
@@ -92,6 +102,9 @@ export default function PostsList({
                 <td style={{ textAlign: "center" }}>
                   <Form.Check // prettier-ignore
                     type="switch"
+                    checked={post.topRate}
+                    onChange={() => handleTopRateChange(post.id, !post.topRate)}
+                    disabled={filterstatus !== "all" || searchquery.length > 0}
                   />
                 </td>
                 <td>
