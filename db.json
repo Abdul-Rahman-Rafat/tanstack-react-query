@@ -161,6 +161,31 @@
       "post_id": 1,
       "comment": "123",
       "id": "8WbGUIyPyRw"
+    },
+    {
+      "post_id": 1,
+      "comment": "gg",
+      "id": "wht2Lx0Un84"
+    },
+    {
+      "post_id": 1,
+      "comment": "gggg",
+      "id": "oXALD8A23Ws"
+    },
+    {
+      "post_id": 1,
+      "comment": "لل",
+      "id": "iZwkhAQ7q4I"
+    },
+    {
+      "post_id": 1,
+      "comment": "33",
+      "id": "eurlfhr6fUE"
+    },
+    {
+      "post_id": 1,
+      "comment": "44",
+      "id": "nxLu-82xHOU"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
