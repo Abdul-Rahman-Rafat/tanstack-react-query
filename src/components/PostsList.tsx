@@ -4,6 +4,7 @@ import useGetPosts from "../hooks/useGetPosts";
 import { DataItem, postStatusType } from "../Types";
 import useSearch from "../hooks/useSearch";
 import useUpdateRate from "../hooks/useUpdateRate";
+import useRemovePost from "../hooks/useRemovePost";
 import { useState } from "react";
 
 //prefetch
@@ -23,6 +24,7 @@ export default function PostsList({
   const [paginate, setPaginate] = useState(1);
   const { data, isLoading, error } = useGetPosts(filterstatus, paginate); // descrturing
   const searchData = useSearch(searchquery); // without descrturing
+  const deleteAction = useRemovePost();
 
 
   const updateRate = useUpdateRate();
@@ -85,7 +87,9 @@ export default function PostsList({
                 </td>
                 <td>
                   <ButtonGroup aria-label="Basic example">
-                    <Button variant="danger">Delete</Button>
+                    <Button variant="danger"
+                    disabled={filterstatus!=="all"}
+                    onClick={()=>{deleteAction.mutate(post.id)}}>Delete</Button>
                   </ButtonGroup>
                 </td>
               </tr>
